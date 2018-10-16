@@ -1,4 +1,4 @@
-package shotener.statistic
+package shortener.statistic
 
 import scala.collection.concurrent._
 import types.{GeneratedUrl, Value}

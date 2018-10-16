@@ -1,4 +1,4 @@
-package shotener.urls
+package shortener.urls
 
 import java.util.{Timer, TimerTask}
 import scala.util.Random

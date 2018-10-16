@@ -1,8 +1,8 @@
-package shotener.app
+package shortener.app
 
 import scala.collection.concurrent._
-import shotener.urls._
-import shotener.statistic.Statistics
+import shortener.urls._
+import shortener.statistic.Statistics
 import types.{GeneratedUrl, ValidDatas, Value}
 
 case object App{

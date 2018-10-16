@@ -2,7 +2,7 @@ import io.circe.generic.auto._
 import io.circe.parser._
 import lol.http._
 import lol.json._
-import shotener.app._
+import shortener.app._
 import types.ValidDatas
 
 import scala.concurrent.ExecutionContext.Implicits.global
