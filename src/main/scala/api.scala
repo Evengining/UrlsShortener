@@ -3,29 +3,29 @@ import io.circe.parser._
 import lol.http._
 import lol.json._
 import shortener.app._
-import types.ValidDatas
+import types.ValidRequestData
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-object Main {
+object Api {
   def main(args: Array[String]): Unit = {
     Server.listen(8888){
       case req @ POST at url"/createNewUrl" => {
         req.readAs[String].map {
-            decode[ValidDatas](_) match {
-              case Right(v) => {
-                if (v.url.contains("http://") || v.url.contains("https://"))
-                  Ok(App.reqToGenerateUrl(v))
+            decode[ValidRequestData](_) match {
+              case Right(validRequestData) => {
+                if (validRequestData.url.startsWith("http://") || validRequestData.url.startsWith("https://"))
+                  Ok(App.generateUrl(validRequestData))
                 else
-                  BadRequest
+                  BadRequest("Not found protocol http or https in url")
               }
-              case Left(_) => BadRequest
+              case Left(_) => BadRequest("Error in parameters")
             }
         }
       }
 
       case GET at url"/$url" => {
-        App.returnOldUrl(url) match {
+        App.returnOriginalUrl(url) match {
           case Some(url) => Redirect(url, 302)
           case None => NotFound
         }
