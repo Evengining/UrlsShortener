@@ -6,7 +6,7 @@ import scala.collection.concurrent._
 import scala.concurrent.duration._
 import types.{GeneratedUrl, DataOfGeneratedUrl}
 
-case object WorkWithUrls {
+object WorkWithUrls {
   def generateNewUrl = Random.alphanumeric.take(6).mkString
 
   def intervalRemoveUrl(generatedUrls: TrieMap[GeneratedUrl, DataOfGeneratedUrl], generatedUrl: GeneratedUrl, lifeTimeInDays: Int) = {

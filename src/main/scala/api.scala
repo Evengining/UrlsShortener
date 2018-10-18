@@ -9,18 +9,18 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 object Api {
   def main(args: Array[String]): Unit = {
-    Server.listen(8888){
-      case req @ POST at url"/createNewUrl" => {
+    Server.listen(8888) {
+      case req@POST at url"/createNewUrl" => {
         req.readAs[String].map {
-            decode[ValidRequestData](_) match {
-              case Right(validRequestData) => {
-                if (validRequestData.url.startsWith("http://") || validRequestData.url.startsWith("https://"))
-                  Ok(App.generateUrl(validRequestData))
-                else
-                  BadRequest("Not found protocol http or https in url")
-              }
-              case Left(_) => BadRequest("Error in parameters")
+          decode[ValidRequestData](_) match {
+            case Right(validRequestData) => {
+              if (validRequestData.url.startsWith("http://") || validRequestData.url.startsWith("https://"))
+                Ok(App.generateUrl(validRequestData))
+              else
+                BadRequest("Not found protocol http or https in url")
             }
+            case Left(_) => BadRequest("Error in parameters")
+          }
         }
       }
 

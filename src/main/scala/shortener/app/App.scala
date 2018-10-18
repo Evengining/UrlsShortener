@@ -4,7 +4,7 @@ import scala.collection.concurrent._
 import shortener.urls._
 import types.{GeneratedUrl, ValidRequestData, DataOfGeneratedUrl}
 
-object App{
+object App {
   val generatedUrls: TrieMap[GeneratedUrl, DataOfGeneratedUrl] = TrieMap.empty[GeneratedUrl, DataOfGeneratedUrl]
 
   def generateUrl(dataRequest: ValidRequestData): GeneratedUrl = {
@@ -27,14 +27,14 @@ object App{
   }
 
   def returnOriginalUrl(generatedUrl: GeneratedUrl): Option[String] = {
-    generatedUrls.get(generatedUrl) map {
+    generatedUrls.get(generatedUrl).map {
       dataOfGeneratedUrl =>
-        generatedUrls += generatedUrl -> dataOfGeneratedUrl.copy(dataOfGeneratedUrl.originalUrl, dataOfGeneratedUrl.views + 1)
+        generatedUrls += generatedUrl -> dataOfGeneratedUrl.copy(views = dataOfGeneratedUrl.views + 1)
         dataOfGeneratedUrl.originalUrl
     }
   }
 
   def getStatistics(generatedUrl: GeneratedUrl): Option[String] = {
-    generatedUrls.get(generatedUrl) map (_.views.toString)
+    generatedUrls.get(generatedUrl).map(_.views.toString)
   }
 }
